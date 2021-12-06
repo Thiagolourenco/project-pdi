@@ -11,12 +11,21 @@ import {
   TextInput,
   Pressable,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import {logo} from '../../assets';
 import useStyles from './Login.style';
+import {StackRoutesType} from '../../@types';
+import {StackNavigationProp} from '@react-navigation/stack';
+
+type LoginStackProps = StackNavigationProp<StackRoutesType, 'Users'>;
 
 const Login = (): JSX.Element => {
   const styles = useStyles();
+
+  const {navigate} = useNavigation<LoginStackProps>();
+
+  const handleRegister = () => navigate('Users');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,7 +39,7 @@ const Login = (): JSX.Element => {
 
         <TextInput placeholder="@username" style={styles.input} />
 
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>Cadastrar</Text>
         </Pressable>
       </View>

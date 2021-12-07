@@ -3,17 +3,9 @@
  */
 
 import React from 'react';
-import {
-  Text,
-  SafeAreaView,
-  // Image,
-  View,
-  Pressable,
-  FlatList,
-} from 'react-native';
+import {Text, SafeAreaView, View, Pressable, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// import {logo} from '../../assets';
 import useStyles from './Users.style';
 
 Icon.loadFont();
@@ -23,7 +15,7 @@ const DATA_USERS = [0, 1, 2, 3, 4, 5, 6];
 const Users = (): JSX.Element => {
   const styles = useStyles();
 
-  const Users = () => {
+  const User = (): JSX.Element => {
     return (
       <View style={styles.card}>
         <View style={styles.cardContent}>
@@ -71,7 +63,7 @@ const Users = (): JSX.Element => {
       <FlatList
         data={DATA_USERS}
         keyExtractor={item => String(item)}
-        renderItem={Users}
+        renderItem={User}
         showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>

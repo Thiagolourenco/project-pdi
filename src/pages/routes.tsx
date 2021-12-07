@@ -6,10 +6,11 @@ import {Image, Pressable, StyleSheet, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {logo} from '../assets';
+import {StackRoutesType} from '../@types';
 
 import Login from './Login';
 import Users from './Users';
-import {StackRoutesType} from '../@types';
+import Repositories from './Repositories';
 
 const Stack = createStackNavigator<StackRoutesType>();
 
@@ -39,6 +40,8 @@ const Routes = (): JSX.Element => {
           },
         }}
       />
+
+      <Stack.Screen name="Repositories" component={Repositories} />
     </Stack.Navigator>
   );
 };

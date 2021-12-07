@@ -18,14 +18,14 @@ import useStyles from './Login.style';
 import {StackRoutesType} from '../../@types';
 import {StackNavigationProp} from '@react-navigation/stack';
 
-type LoginStackProps = StackNavigationProp<StackRoutesType, 'Users'>;
+type LoginStackProps = StackNavigationProp<StackRoutesType, 'Repositories'>;
 
 const Login = (): JSX.Element => {
   const styles = useStyles();
 
   const {navigate} = useNavigation<LoginStackProps>();
 
-  const handleRegister = () => navigate('Users');
+  const handleRegister = () => navigate('Repositories');
 
   return (
     <SafeAreaView style={styles.container}>

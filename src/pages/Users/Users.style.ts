@@ -33,7 +33,7 @@ export default (): IUsersStyle => {
       borderRadius: 12,
     },
     card: {
-      marginHorizontal: 32,
+      marginHorizontal: 22,
       paddingVertical: 32,
       marginVertical: 8,
       paddingLeft: 24,

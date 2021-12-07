@@ -100,11 +100,11 @@ const Repositories = (): JSX.Element => {
             <Text style={styles.textFooter}>2</Text>
           </View>
           <View style={styles.viewContentFooter}>
-            <Icon name="supervisor_account" size={16} color="#E5E5E5" />
+            <Icon name="supervisor-account" size={16} color="#E5E5E5" />
             <Text style={styles.textFooter}>5</Text>
           </View>
           <View style={styles.viewContentFooter}>
-            <Icon name="access_time" size={16} color="#E5E5E5" />
+            <Icon name="access-time" size={16} color="#E5E5E5" />
             <Text style={styles.textFooter}>2 dias atrás</Text>
           </View>
         </View>

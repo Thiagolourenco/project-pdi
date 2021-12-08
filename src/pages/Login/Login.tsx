@@ -25,7 +25,7 @@ const Login = (): JSX.Element => {
 
   const {navigate} = useNavigation<LoginStackProps>();
 
-  const handleRegister = () => navigate('Repositories');
+  const handleRegister = () => navigate('Users');
 
   return (
     <SafeAreaView style={styles.container}>

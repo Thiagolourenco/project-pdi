@@ -3,7 +3,10 @@
  */
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  StackNavigationProp,
+} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -18,8 +21,10 @@ Icon.loadFont();
 
 const Stack = createStackNavigator<StackRoutesType>();
 
+type LoginStackProps = StackNavigationProp<StackRoutesType, 'Login'>;
+
 const Routes = (): JSX.Element => {
-  const {goBack} = useNavigation();
+  const {goBack, navigate} = useNavigation<LoginStackProps>();
 
   return (
     <Stack.Navigator>
@@ -39,7 +44,9 @@ const Routes = (): JSX.Element => {
           headerTitle: '',
           headerRight: () => {
             return (
-              <Pressable style={styles.buttonAddNew}>
+              <Pressable
+                style={styles.buttonAddNew}
+                onPress={() => navigate('Login')}>
                 <Text style={styles.buttonAddNewText}>Adicionar novo</Text>
               </Pressable>
             );

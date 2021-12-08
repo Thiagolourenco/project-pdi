@@ -2,7 +2,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   View,
@@ -26,42 +26,56 @@ const DATA_REPOS = [0, 1, 2, 3, 4];
 Icon.loadFont();
 
 const Repositories = (): JSX.Element => {
-  const width = useSharedValue(287);
-  const widthInput = useSharedValue(48);
+  const widthSearch = useSharedValue(287);
+  const widthFilter = useSharedValue(48);
+  const opacity = useSharedValue(0);
 
   const styles = useStyles();
 
-  const style = useAnimatedStyle(() => {
+  useEffect(() => {
+    opacity.value = 1;
+  }, [opacity]);
+
+  const styleSearch = useAnimatedStyle(() => {
     return {
-      width: withTiming(width.value, {
+      width: withTiming(widthSearch.value, {
         duration: 600,
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
       }),
     };
   });
 
-  const styleInput = useAnimatedStyle(() => {
+  const styleFilter = useAnimatedStyle(() => {
     return {
-      width: withTiming(widthInput.value, {
+      width: withTiming(widthFilter.value, {
         duration: 600,
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+      }),
+    };
+  });
+
+  const styleViewCard = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(opacity.value, {
+        duration: 3000,
+        easing: Easing.bezier(0.1, 0.1, 0.25, 1),
       }),
     };
   });
 
   const handleOnPress = () => {
-    width.value = 287;
-    widthInput.value = 48;
+    widthSearch.value = 287;
+    widthFilter.value = 48;
   };
 
   const handleOnPressSearch = () => {
-    width.value = 48;
-    widthInput.value = 287;
+    widthSearch.value = 48;
+    widthFilter.value = 287;
   };
 
   const CardRepositories = () => {
     return (
-      <View style={styles.card}>
+      <Animated.View style={[styles.card, styleViewCard]}>
         <View style={styles.cardHeader}>
           <View style={styles.cardInfoProject}>
             <Text style={styles.cardInfoProjectText}>project-name-java</Text>
@@ -108,14 +122,14 @@ const Repositories = (): JSX.Element => {
             <Text style={styles.textFooter}>2 dias atrás</Text>
           </View>
         </View>
-      </View>
+      </Animated.View>
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.search}>
-        <Animated.View style={[styles.viewInput, style]}>
+        <Animated.View style={[styles.viewInput, styleSearch]}>
           <Pressable onPress={handleOnPress}>
             <Icon name="search" size={24} color="#7E7E7E" />
           </Pressable>
@@ -126,7 +140,7 @@ const Repositories = (): JSX.Element => {
           />
         </Animated.View>
 
-        <Animated.View style={[styles.viewInput, styleInput]}>
+        <Animated.View style={[styles.viewInput, styleFilter]}>
           <Pressable onPress={handleOnPressSearch}>
             <Icon name="filter-list" size={24} color="#7E7E7E" />
           </Pressable>

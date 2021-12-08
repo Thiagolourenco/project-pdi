@@ -111,7 +111,8 @@ export default (): IRepositoriesStyle => {
     viewInput: {
       backgroundColor: '#fff',
       borderRadius: 4,
-      paddingVertical: 12,
+      alignItems: 'center',
+      height: 40,
       paddingLeft: 14,
       flexDirection: 'row',
 

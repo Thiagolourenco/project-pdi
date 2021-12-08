@@ -18,7 +18,7 @@ import useStyles from './Login.style';
 import {StackRoutesType} from '../../@types';
 import {StackNavigationProp} from '@react-navigation/stack';
 
-type LoginStackProps = StackNavigationProp<StackRoutesType, 'Users'>;
+type LoginStackProps = StackNavigationProp<StackRoutesType, 'Repositories'>;
 
 const Login = (): JSX.Element => {
   const styles = useStyles();

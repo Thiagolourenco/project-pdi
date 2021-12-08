@@ -2,18 +2,16 @@
  * @format
  */
 
-import React from 'react';
-import {
-  Text,
-  SafeAreaView,
-  // Image,
-  View,
-  Pressable,
-  FlatList,
-} from 'react-native';
+import React, {useEffect} from 'react';
+import {Text, SafeAreaView, View, Pressable, FlatList} from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// import {logo} from '../../assets';
 import useStyles from './Users.style';
 
 Icon.loadFont();
@@ -23,9 +21,24 @@ const DATA_USERS = [0, 1, 2, 3, 4, 5, 6];
 const Users = (): JSX.Element => {
   const styles = useStyles();
 
-  const Users = () => {
+  const opacity = useSharedValue(0);
+
+  useEffect(() => {
+    opacity.value = 1;
+  }, [opacity]);
+
+  const styleViewCard = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(opacity.value, {
+        duration: 3000,
+        easing: Easing.bezier(0.1, 0.1, 0.25, 1),
+      }),
+    };
+  });
+
+  const User = (): JSX.Element => {
     return (
-      <View style={styles.card}>
+      <Animated.View style={[styles.card, styleViewCard]}>
         <View style={styles.cardContent}>
           <View style={styles.imageProfile} />
           <View style={styles.viewContentUser}>
@@ -63,7 +76,7 @@ const Users = (): JSX.Element => {
             <Text style={styles.textFooter}>2</Text>
           </View>
         </View>
-      </View>
+      </Animated.View>
     );
   };
   return (
@@ -71,7 +84,7 @@ const Users = (): JSX.Element => {
       <FlatList
         data={DATA_USERS}
         keyExtractor={item => String(item)}
-        renderItem={Users}
+        renderItem={User}
         showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>

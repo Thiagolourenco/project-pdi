@@ -11,8 +11,10 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useQuery} from '@apollo/client';
 
 import useStyles from './Users.style';
+import {GetUser} from '../../graphql';
 
 Icon.loadFont();
 
@@ -20,6 +22,11 @@ const DATA_USERS = [0, 1, 2, 3, 4, 5, 6];
 
 const Users = (): JSX.Element => {
   const styles = useStyles();
+  const {loading, data, error} = useQuery(GetUser);
+
+  console.log('DATA => ', data);
+  console.log('LOADING => ', loading);
+  console.log('ERROR => ', error);
 
   const opacity = useSharedValue(0);
 

@@ -19,10 +19,12 @@ import Animated, {
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery} from '@apollo/client';
+import {useRoute, RouteProp} from '@react-navigation/native';
 
 import useStyles from './Repositories.style';
 import {GetRepositories} from '../../graphql';
 import {CardRepositories} from './components';
+import {StackRoutesType} from '../../@types';
 
 Icon.loadFont();
 
@@ -53,14 +55,18 @@ interface IGetRepositories {
   user: IUser;
 }
 
+type LoginStackProps = RouteProp<StackRoutesType, 'Repositories'>;
+
 const Repositories = (): JSX.Element => {
   const widthSearch = useSharedValue(287);
   const widthFilter = useSharedValue(48);
 
   const styles = useStyles();
 
+  const {params} = useRoute<LoginStackProps>();
+
   const {data, loading} = useQuery<IGetRepositories>(GetRepositories, {
-    variables: {number_of_repos: 10},
+    variables: {number_of_repos: 10, username: params?.name},
   });
 
   const styleSearch = useAnimatedStyle(() => {

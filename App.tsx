@@ -9,7 +9,7 @@ const App = (): JSX.Element => {
   const client = new ApolloClient({
     uri: 'https://api.github.com/graphql',
     headers: {
-      authorization: 'Bearer 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',
+      authorization: 'Bearer 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',
     },
     cache: new InMemoryCache(),
   });

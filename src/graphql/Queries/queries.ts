@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client';
 
-export const GetUser = gql`
-  query Query {
-    user(login: "Thiagolourenco") {
+export const GET_USER = gql`
+  query getUser($username: String!) {
+    user(login: $username) {
       login
       avatarUrl
       company
@@ -12,8 +12,8 @@ export const GetUser = gql`
 `;
 
 export const GetRepositories = gql`
-  query ($number_of_repos: Int!) {
-    user(login: "Thiagolourenco") {
+  query ($number_of_repos: Int!, $username: String!) {
+    user(login: $username) {
       repositories(last: $number_of_repos) {
         totalCount
         nodes {

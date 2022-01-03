@@ -53,7 +53,7 @@ const CardRepositories = ({item}: ICardRepositories) => {
           <Text style={styles.cardTagText}>#JavaScript</Text>
         </View>
         <View style={styles.cardTag}>
-          <Text style={styles.cardTagText}>#JavaScript</Text>
+          <Text style={styles.cardTagText}>#ReactNative</Text>
         </View>
 
         <View style={styles.cardTagEditIcon}>

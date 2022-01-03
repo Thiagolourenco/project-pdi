@@ -2,14 +2,14 @@
  * @format
  */
 
-import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
+import {ImageStyle, StyleSheet, TextStyle, ViewStyle} from 'react-native';
 
 interface IUsersStyle {
   buttonRemove: ViewStyle;
   card: ViewStyle;
   cardContent: ViewStyle;
   container: ViewStyle;
-  imageProfile: ViewStyle;
+  imageProfile: ImageStyle;
   icon: ViewStyle;
   textNameUser: TextStyle;
   textUser: TextStyle;

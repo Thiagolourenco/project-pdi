@@ -62,7 +62,6 @@ export default (): ICardRespositoriesStyle => {
     },
     cardTag: {
       backgroundColor: 'rgba(0,0,0,0.08)',
-      width: 100,
       borderRadius: 100,
       paddingVertical: 3,
       paddingHorizontal: 16,

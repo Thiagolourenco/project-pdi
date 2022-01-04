@@ -7,8 +7,10 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {INodes} from '../../Repositories';
+import {formatDistance} from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
+import {INodes} from '../../Repositories';
 import useStyles from './CardRepositories.style';
 
 interface ICardRepositories {
@@ -68,7 +70,7 @@ const CardRepositories = ({item}: ICardRepositories) => {
         </View>
         <View style={styles.viewContentFooter}>
           <Icon name="star" size={16} color="#E5E5E5" />
-          <Text style={styles.textFooter}>2</Text>
+          <Text style={styles.textFooter}>{item?.stargazerCount}</Text>
         </View>
         <View style={styles.viewContentFooter}>
           <Icon name="supervisor-account" size={16} color="#E5E5E5" />
@@ -76,7 +78,12 @@ const CardRepositories = ({item}: ICardRepositories) => {
         </View>
         <View style={styles.viewContentFooter}>
           <Icon name="access-time" size={16} color="#E5E5E5" />
-          <Text style={styles.textFooter}>{item.createdAt}</Text>
+          <Text style={styles.textFooter}>
+            {formatDistance(new Date(), new Date(item.createdAt), {
+              addSuffix: true,
+              locale: ptBR,
+            })}
+          </Text>
         </View>
       </View>
     </Animated.View>

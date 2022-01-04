@@ -85,6 +85,7 @@ export default (): IUsersStyle => {
       color: '#7E7E7E',
       fontWeight: '400',
       marginLeft: 4,
+      width: 100, // Melhorar isso
     },
     viewUserInfo: {
       flexDirection: 'row',

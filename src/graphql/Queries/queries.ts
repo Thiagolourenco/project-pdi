@@ -7,6 +7,7 @@ export const GET_USER = gql`
       avatarUrl
       company
       name
+      location
     }
   }
 `;
@@ -21,7 +22,8 @@ export const GetRepositories = gql`
           createdAt
           id
           description
-          languages(first: 10) {
+          stargazerCount
+          languages(first: 1) {
             nodes {
               name
             }

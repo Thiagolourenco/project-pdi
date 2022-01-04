@@ -88,11 +88,13 @@ const Users = (): JSX.Element => {
           <View style={styles.viewContainerFooter}>
             <View style={styles.viewContentFooter}>
               <Icon name="business" size={16} color="#E5E5E5" />
-              <Text style={styles.textFooter}>{item?.company}</Text>
+              <Text style={styles.textFooter} numberOfLines={1}>
+                {item?.company}
+              </Text>
             </View>
             <View style={styles.viewContentFooter}>
               <Icon name="place" size={16} color="#E5E5E5" />
-              <Text style={styles.textFooter}>São Paulo, Brazil</Text>
+              <Text style={styles.textFooter}>{item?.location}</Text>
             </View>
             <View style={styles.viewContentFooter}>
               <Icon name="star" size={16} color="#E5E5E5" />

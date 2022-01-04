@@ -41,6 +41,7 @@ export interface INodes {
   id: string;
   description: string;
   laguages: ILanguage;
+  stargazerCount: number;
 }
 
 interface IRepositories {

@@ -15,8 +15,6 @@ type UserStateType = {
 const useUserStore = create<UserStateType>(set => ({
   users: [],
   addUser: (user: UserType) => {
-    console.log('USER =>', user);
-
     set(state => ({users: [...state.users, user]}));
   },
 }));

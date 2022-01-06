@@ -1,10 +1,42 @@
-import React from 'react';
-import {View, Text, Pressable } from 'react-native';
-import Animated from 'react-native-reanimated';
+import React, {useEffect} from 'react';
+import {View, Text, Pressable, Image} from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {UserType} from '../../../../store';
 
-const CardUser = () => {
+import useStyles from './CardUser.style';
+
+interface ICardUser {
+  item: UserType;
+  onPress: (login: string) => void;
+}
+
+const CardUser = ({item, onPress}: ICardUser) => {
+  const styles = useStyles();
+
+  const opacity = useSharedValue(0);
+
+  useEffect(() => {
+    opacity.value = 1;
+  }, [opacity]);
+
+  const styleViewCard = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(opacity.value, {
+        duration: 3000,
+        easing: Easing.bezier(0.1, 0.1, 0.25, 1),
+      }),
+    };
+  });
+
   return (
     <Animated.View style={[styles.card, styleViewCard]}>
+      <Pressable onPress={() => onPress(item?.login)}>
         <View style={styles.cardContent}>
           <Image style={styles.imageProfile} source={{uri: item?.avatarUrl}} />
           <View style={styles.viewContentUser}>
@@ -42,6 +74,9 @@ const CardUser = () => {
             <Text style={styles.textFooter}>2</Text>
           </View>
         </View>
-      </Animated.View>
-  )
-}
+      </Pressable>
+    </Animated.View>
+  );
+};
+
+export default CardUser;

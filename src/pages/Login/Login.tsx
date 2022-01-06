@@ -35,13 +35,15 @@ const Login = (): JSX.Element => {
 
   const [GetUser, {data, loading, error}] = useLazyQuery(GET_USER);
 
-  const handleRegister = () => {
-    GetUser({variables: {username: username}});
+  const handleRegister = async () => {
+    await GetUser({variables: {username: username}});
+
+    // TODO => Melhorar a forma que é salvo a informação no zustand
 
     if (data) {
-      console.log('DATA USER => ', data?.user);
       addUser(data?.user);
       navigate('Users');
+      setUserName('');
     }
   };
 

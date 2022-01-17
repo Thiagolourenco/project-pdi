@@ -35,7 +35,7 @@ export default (): ILoginStyle => {
       flex: 1,
       marginVertical: 32,
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
     },
     content: {
       marginHorizontal: 32,
@@ -50,6 +50,7 @@ export default (): ILoginStyle => {
     },
     logoImage: {
       alignItems: 'center',
+      marginTop: 32,
     },
     title: {
       fontSize: 22,
@@ -65,8 +66,6 @@ export default (): ILoginStyle => {
       fontSize: 16,
       fontWeight: '400',
       color: '#7E7E7E',
-      position: 'absolute',
-      bottom: 0,
     },
   });
 };

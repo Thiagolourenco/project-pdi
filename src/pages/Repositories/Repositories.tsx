@@ -2,13 +2,13 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   View,
   Pressable,
   TextInput,
-  Text,
+  ActivityIndicator,
   FlatList,
 } from 'react-native';
 import Animated, {
@@ -18,23 +18,57 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useQuery} from '@apollo/client';
+import {useRoute, RouteProp} from '@react-navigation/native';
 
 import useStyles from './Repositories.style';
-
-const DATA_REPOS = [0, 1, 2, 3, 4];
+import {GetRepositories} from '../../graphql';
+import {CardRepositories} from './components';
+import {StackRoutesType} from '../../@types';
 
 Icon.loadFont();
+
+interface ILanguageNodes {
+  name: string;
+}
+interface ILanguage {
+  nodes: ILanguageNodes[];
+}
+
+export interface INodes {
+  name: string;
+  createdAt: string;
+  id: string;
+  description: string;
+  laguages: ILanguage;
+  stargazerCount: number;
+}
+
+interface IRepositories {
+  totalCount: number;
+  nodes: INodes[];
+}
+
+interface IUser {
+  repositories: IRepositories;
+}
+interface IGetRepositories {
+  user: IUser;
+}
+
+type LoginStackProps = RouteProp<StackRoutesType, 'Repositories'>;
 
 const Repositories = (): JSX.Element => {
   const widthSearch = useSharedValue(287);
   const widthFilter = useSharedValue(48);
-  const opacity = useSharedValue(0);
 
   const styles = useStyles();
 
-  useEffect(() => {
-    opacity.value = 1;
-  }, [opacity]);
+  const {params} = useRoute<LoginStackProps>();
+
+  const {data, loading} = useQuery<IGetRepositories>(GetRepositories, {
+    variables: {number_of_repos: 10, username: params?.name},
+  });
 
   const styleSearch = useAnimatedStyle(() => {
     return {
@@ -54,15 +88,6 @@ const Repositories = (): JSX.Element => {
     };
   });
 
-  const styleViewCard = useAnimatedStyle(() => {
-    return {
-      opacity: withTiming(opacity.value, {
-        duration: 3000,
-        easing: Easing.bezier(0.1, 0.1, 0.25, 1),
-      }),
-    };
-  });
-
   const handleOnPress = () => {
     widthSearch.value = 287;
     widthFilter.value = 48;
@@ -71,59 +96,6 @@ const Repositories = (): JSX.Element => {
   const handleOnPressSearch = () => {
     widthSearch.value = 48;
     widthFilter.value = 287;
-  };
-
-  const CardRepositories = () => {
-    return (
-      <Animated.View style={[styles.card, styleViewCard]}>
-        <View style={styles.cardHeader}>
-          <View style={styles.cardInfoProject}>
-            <Text style={styles.cardInfoProjectText}>project-name-java</Text>
-            <Icon name="keyboard-arrow-right" size={24} color="#000" />
-          </View>
-
-          <View style={styles.iconStar}>
-            <Icon name="star" size={16} color="#FFC700" />
-          </View>
-        </View>
-
-        <Text style={styles.cardInfoProjectDescription}>
-          Project application with component app with React Native
-        </Text>
-
-        <View style={styles.cardTags}>
-          <View style={styles.cardTag}>
-            <Text style={styles.cardTagText}>#JavaScript</Text>
-          </View>
-          <View style={styles.cardTag}>
-            <Text style={styles.cardTagText}>#JavaScript</Text>
-          </View>
-
-          <View style={styles.cardTagEditIcon}>
-            <Icon name="edit" color="#fff" size={10} />
-          </View>
-        </View>
-
-        <View style={styles.viewContainerFooter}>
-          <View style={styles.viewContentFooter}>
-            <Icon name="language" size={16} color="#E5E5E5" />
-            <Text style={styles.textFooter}>React Native</Text>
-          </View>
-          <View style={styles.viewContentFooter}>
-            <Icon name="star" size={16} color="#E5E5E5" />
-            <Text style={styles.textFooter}>2</Text>
-          </View>
-          <View style={styles.viewContentFooter}>
-            <Icon name="supervisor-account" size={16} color="#E5E5E5" />
-            <Text style={styles.textFooter}>5</Text>
-          </View>
-          <View style={styles.viewContentFooter}>
-            <Icon name="access-time" size={16} color="#E5E5E5" />
-            <Text style={styles.textFooter}>2 dias atrás</Text>
-          </View>
-        </View>
-      </Animated.View>
-    );
   };
 
   return (
@@ -148,10 +120,18 @@ const Repositories = (): JSX.Element => {
         </Animated.View>
       </View>
 
+      {loading && (
+        <View style={styles.indicator}>
+          <ActivityIndicator size="large" color="#000000" />
+        </View>
+      )}
+
+      {/** TODO - Shimmer Effect */}
+
       <FlatList
-        data={DATA_REPOS}
-        keyExtractor={item => String(item)}
-        renderItem={CardRepositories}
+        data={data?.user?.repositories?.nodes}
+        keyExtractor={item => String(item.id)}
+        renderItem={({item}) => <CardRepositories item={item} />}
         showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>

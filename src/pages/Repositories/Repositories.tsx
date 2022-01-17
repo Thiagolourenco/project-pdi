@@ -125,6 +125,9 @@ const Repositories = (): JSX.Element => {
           <ActivityIndicator size="large" color="#000000" />
         </View>
       )}
+
+      {/** TODO - Shimmer Effect */}
+
       <FlatList
         data={data?.user?.repositories?.nodes}
         keyExtractor={item => String(item.id)}

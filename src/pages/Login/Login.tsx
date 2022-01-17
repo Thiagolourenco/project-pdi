@@ -49,6 +49,7 @@ const Login = (): JSX.Element => {
 
   if (error) {
     return (
+      // TODO => Toast de Error
       <View>
         <Text>ERROR</Text>
       </View>

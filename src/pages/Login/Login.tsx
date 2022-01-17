@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useLazyQuery} from '@apollo/client';
+import analytics from '@react-native-firebase/analytics';
 
 import {logo} from '../../assets';
 import useStyles from './Login.style';
@@ -39,6 +40,11 @@ const Login = (): JSX.Element => {
     await GetUser({variables: {username: username}});
 
     // TODO => Melhorar a forma que é salvo a informação no zustand
+
+    await analytics().logEvent('login', {
+      item: 'Login',
+      size: 'L',
+    });
 
     if (data) {
       addUser(data?.user);

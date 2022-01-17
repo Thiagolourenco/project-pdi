@@ -1,11 +1,5 @@
 import create from 'zustand';
-
-export type UserType = {
-  avatarUrl: string;
-  company: string;
-  login: string;
-  name: string;
-};
+import {UserType} from '../@types';
 
 type UserStateType = {
   users: UserType[];

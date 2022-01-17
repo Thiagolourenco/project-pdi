@@ -8,7 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {UserType} from '../../../../store';
+import {UserType} from '../../../../@types';
 import useStyles from './CardUser.style';
 
 interface ICardUser {

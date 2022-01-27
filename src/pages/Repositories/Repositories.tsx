@@ -10,6 +10,7 @@ import {
   TextInput,
   ActivityIndicator,
   FlatList,
+  Text,
 } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -20,6 +21,7 @@ import Animated, {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery} from '@apollo/client';
 import {useRoute, RouteProp} from '@react-navigation/native';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 import useStyles from './Repositories.style';
 import {GetRepositories} from '../../graphql';
@@ -66,7 +68,7 @@ const Repositories = (): JSX.Element => {
 
   const {params} = useRoute<LoginStackProps>();
 
-  const {data, loading} = useQuery<IGetRepositories>(GetRepositories, {
+  const {data, loading, error} = useQuery<IGetRepositories>(GetRepositories, {
     variables: {number_of_repos: 10, username: params?.name},
   });
 
@@ -97,6 +99,17 @@ const Repositories = (): JSX.Element => {
     widthSearch.value = 48;
     widthFilter.value = 287;
   };
+
+  if (error) {
+    crashlytics().recordError(error);
+
+    return (
+      // TODO => Toast de Error
+      <View>
+        <Text>ERROR</Text>
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>

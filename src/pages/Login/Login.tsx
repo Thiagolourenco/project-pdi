@@ -2,7 +2,7 @@
  * @format
  */
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   SafeAreaView,
@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useLazyQuery} from '@apollo/client';
+import analytics from '@react-native-firebase/analytics';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 import {logo} from '../../assets';
 import useStyles from './Login.style';
@@ -21,11 +23,13 @@ import {StackRoutesType} from '../../@types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {GET_USER} from '../../graphql';
 import useUserStore from '../../store/user';
+import {ToastError} from '../../components';
 
 type LoginStackProps = StackNavigationProp<StackRoutesType, 'Users'>;
 
 const Login = (): JSX.Element => {
   const [username, setUserName] = useState<string>('');
+  const [errorToast, setErrorToast] = useState<boolean>(false);
 
   const styles = useStyles();
 
@@ -35,26 +39,37 @@ const Login = (): JSX.Element => {
 
   const [GetUser, {data, loading, error}] = useLazyQuery(GET_USER);
 
+  useEffect(() => {
+    crashlytics().log('App Mounted');
+
+    if (error) {
+      crashlytics().recordError(error);
+      setErrorToast(true);
+    }
+  }, [error]);
+
   const handleRegister = async () => {
     await GetUser({variables: {username: username}});
 
     // TODO => Melhorar a forma que é salvo a informação no zustand
 
-    if (data) {
+    await analytics().logEvent('login', {
+      item: 'Login',
+      size: 'L',
+    });
+
+    if (data && !data) {
       addUser(data?.user);
       navigate('Users');
       setUserName('');
     }
+
+    if (!data) {
+      setErrorToast(true);
+    }
   };
 
-  if (error) {
-    return (
-      // TODO => Toast de Error
-      <View>
-        <Text>ERROR</Text>
-      </View>
-    );
-  }
+  const handleToastError = () => setErrorToast(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -85,6 +100,8 @@ const Login = (): JSX.Element => {
       <Text style={styles.termsOfUseText}>
         Termos de política e privacidade
       </Text>
+
+      {errorToast && <ToastError onPress={handleToastError} />}
     </SafeAreaView>
   );
 };

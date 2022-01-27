@@ -7,6 +7,7 @@ import {SafeAreaView, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import analytics from '@react-native-firebase/analytics';
 
 import useStyles from './Users.style';
 import useUserStore from '../../store/user';
@@ -24,8 +25,13 @@ const Users = (): JSX.Element => {
 
   const {navigate} = useNavigation<LoginStackProps>();
 
-  const handleRepositories = (name: string) => {
+  const handleRepositories = async (name: string) => {
     navigate('Repositories', {name});
+
+    await analytics().logEvent('handle_repositories', {
+      item: 'Navigate Repositories',
+      size: 'L',
+    });
   };
 
   return (

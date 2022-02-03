@@ -42,7 +42,7 @@ const Login = (): JSX.Element => {
   useEffect(() => {
     crashlytics().log('App Mounted');
 
-    if (error) {
+    if (error !== undefined) {
       crashlytics().recordError(error);
       setErrorToast(true);
     }
@@ -58,15 +58,16 @@ const Login = (): JSX.Element => {
       size: 'L',
     });
 
-    if (data && !data) {
+    if (data) {
       addUser(data?.user);
       navigate('Users');
       setUserName('');
     }
 
-    if (!data) {
-      setErrorToast(true);
-    }
+    // if (!data) {
+    //   console.log('OPA ');
+    //   setErrorToast(true);
+    // }
   };
 
   const handleToastError = () => setErrorToast(false);

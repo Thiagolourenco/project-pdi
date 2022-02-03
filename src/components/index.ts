@@ -1,3 +1,4 @@
 import ToastError from './ToastError';
+import ShimmerLoading from './ShimmerLoading';
 
-export {ToastError};
+export {ToastError, ShimmerLoading};

@@ -144,7 +144,9 @@ const Repositories = (): JSX.Element => {
       <FlatList
         data={data?.user?.repositories?.nodes}
         keyExtractor={item => String(item.id)}
-        renderItem={({item}) => <CardRepositories item={item} />}
+        renderItem={({item}) => (
+          <CardRepositories item={item} loading={loading} />
+        )}
         showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>

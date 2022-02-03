@@ -14,6 +14,11 @@ interface ICardStyle {
   viewContentUser: ViewStyle;
   viewContentFooter: ViewStyle;
   viewContainerFooter: ViewStyle;
+
+  shimmerLoadingCardHeader: ViewStyle;
+  shimmerLoadingUserInfo: ViewStyle;
+  shimmerLoadingLogin: ViewStyle;
+  shimmerLoadingFooter: ViewStyle;
 }
 
 export default (): ICardStyle => {
@@ -92,6 +97,25 @@ export default (): ICardStyle => {
     viewContainerFooter: {
       flexDirection: 'row',
       marginTop: 16,
+    },
+
+    shimmerLoadingCardHeader: {
+      height: 64,
+      width: 64,
+      borderRadius: 32,
+    },
+    shimmerLoadingUserInfo: {
+      width: 220,
+      height: 20,
+    },
+    shimmerLoadingLogin: {
+      width: 120,
+      height: 20,
+      marginTop: 6,
+    },
+    shimmerLoadingFooter: {
+      width: 300,
+      height: 20,
     },
   });
 };

@@ -10,8 +10,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import analytics from '@react-native-firebase/analytics';
 
 import useStyles from './Users.style';
-import useUserStore from '../../store/user';
-import {StackRoutesType} from '../../@types';
+import {useUserStore} from '@store';
+import {StackRoutesType} from '@types';
 import CardUser from './components/CardUser';
 
 Icon.loadFont();

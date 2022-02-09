@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, Image, Pressable} from 'react-native';
 import Animated, {Layout, ZoomIn, ZoomOut} from 'react-native-reanimated';
 
-import {close} from '../../assets';
+import {close} from '@assets';
 import useStyles from './ToastError.styles';
 
 interface IToastError {

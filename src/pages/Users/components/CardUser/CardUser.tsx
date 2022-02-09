@@ -26,7 +26,6 @@ const CardUser = ({item, onPress}: ICardUser) => {
 
   useEffect(() => {
     const timers = setTimeout(() => {
-      console.log('OPA');
       setLoading(false);
     }, 4000);
 
@@ -45,8 +44,6 @@ const CardUser = ({item, onPress}: ICardUser) => {
       }),
     };
   });
-
-  console.log('loading => ', loading);
 
   return (
     <>

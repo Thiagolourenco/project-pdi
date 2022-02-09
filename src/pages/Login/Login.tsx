@@ -13,17 +13,18 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {useLazyQuery} from '@apollo/client';
 import analytics from '@react-native-firebase/analytics';
 import crashlytics from '@react-native-firebase/crashlytics';
 
-import {logo} from '../../assets';
+import {logo} from '@assets';
+import {StackRoutesType} from '@types';
+import {GET_USER} from '@graphql';
+import {useUserStore} from '@store';
+import {ToastError} from '@components';
+
 import useStyles from './Login.style';
-import {StackRoutesType} from '../../@types';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {GET_USER} from '../../graphql';
-import useUserStore from '../../store/user';
-import {ToastError} from '../../components';
 
 type LoginStackProps = StackNavigationProp<StackRoutesType, 'Users'>;
 
@@ -57,6 +58,8 @@ const Login = (): JSX.Element => {
       item: 'Login',
       size: 'L',
     });
+
+    await analytics().setUserProperty('status_cadastro', 'Logado');
 
     if (data) {
       addUser(data?.user);

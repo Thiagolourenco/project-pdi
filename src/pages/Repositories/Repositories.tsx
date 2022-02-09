@@ -24,9 +24,9 @@ import {useRoute, RouteProp} from '@react-navigation/native';
 import crashlytics from '@react-native-firebase/crashlytics';
 
 import useStyles from './Repositories.style';
-import {GetRepositories} from '../../graphql';
+import {GetRepositories} from '@graphql';
 import {CardRepositories} from './components';
-import {StackRoutesType} from '../../@types';
+import {StackRoutesType} from '@types';
 
 Icon.loadFont();
 
@@ -144,9 +144,7 @@ const Repositories = (): JSX.Element => {
       <FlatList
         data={data?.user?.repositories?.nodes}
         keyExtractor={item => String(item.id)}
-        renderItem={({item}) => (
-          <CardRepositories item={item} loading={loading} />
-        )}
+        renderItem={({item}) => <CardRepositories item={item} />}
         showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>

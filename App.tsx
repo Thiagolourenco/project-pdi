@@ -3,21 +3,21 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 import * as Sentry from '@sentry/react-native';
+import env from 'react-native-config';
 
 import Routes from './src/pages/routes';
-import {URL, TOKEN_GITHUB, SENTRY_DSN} from '@env';
 
 const App = (): JSX.Element => {
   const client = new ApolloClient({
-    uri: URL,
+    uri: env.URL,
     headers: {
-      authorization: `Bearer ${TOKEN_GITHUB}`,
+      authorization: `Bearer ${env.TOKEN_GITHUB}`,
     },
     cache: new InMemoryCache(),
   });
 
   Sentry.init({
-    dsn: SENTRY_DSN,
+    dsn: env.SENTRY_DSN,
   });
 
   return (

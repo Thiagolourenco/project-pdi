@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleProp} from 'react-native';
 import {ViewStyle} from 'react-native';
 import Animated, {
@@ -6,6 +6,7 @@ import Animated, {
   useAnimatedStyle,
   withRepeat,
   withTiming,
+  useAnimatedReaction,
 } from 'react-native-reanimated';
 
 import useStyles from './ShimmerLoading.style';
@@ -19,9 +20,15 @@ const ShimmerLoading = ({wrapperStyle}: IShimmerLoading): JSX.Element => {
 
   const styles = useStyles();
 
-  useEffect(() => {
-    opacity.value = withRepeat(withTiming(0.7), 8);
-  }, [opacity]);
+  useAnimatedReaction(
+    () => {
+      return (opacity.value = withRepeat(withTiming(0.7), 8));
+    },
+    data => {
+      opacity.value = data;
+    },
+    [opacity],
+  );
 
   const style = useAnimatedStyle(() => {
     return {
